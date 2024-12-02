@@ -2,7 +2,6 @@ package spotifyUI
 
 import (
 	"fmt"
-
 	"github.com/jroimartin/gocui"
 )
 
@@ -14,7 +13,7 @@ func Layout(g *gocui.Gui) error {
 			return err
 		}
 
-		v.Title = "Input"
+		v.Title = "[1]Enter song name: "
 		v.Editable = true
 		v.Wrap = true
 	}

@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"spotify-tui/internal"
 )
 
 func GenerateToken() (string, error) {
 
 	formData := url.Values{
 		"grant_type":    {"client_credentials"},
-		"client_id":     {""},
-		"client_secret": {""},
+		"client_id":     {internal.GetEnv("SPOTIFY_CLIENT_ID")},
+		"client_secret": {internal.GetEnv("SPOTIFY_CLIENT_SECRET")},
 	}
 	resp, err := http.PostForm("https://accounts.spotify.com/api/token", formData)
 
