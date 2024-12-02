@@ -30,7 +30,7 @@ func GenerateToken() (string, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("Unexpected Status Code %d", resp.StatusCode)
+		return "", fmt.Errorf("unexpected Status Code %d", resp.StatusCode)
 	}
 
 	var result tokenResponse
