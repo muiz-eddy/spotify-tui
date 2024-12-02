@@ -1,11 +1,18 @@
 package services
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
 	"spotify-tui/internal"
 )
+
+type tokenResponse struct {
+	AccessToken string `json:"access_token"`
+	TokenType   string `json:"token_type"`
+	ExpiresIn   int    `json:"expires_in"`
+}
 
 func GenerateToken() (string, error) {
 
@@ -14,6 +21,7 @@ func GenerateToken() (string, error) {
 		"client_id":     {internal.GetEnv("SPOTIFY_CLIENT_ID")},
 		"client_secret": {internal.GetEnv("SPOTIFY_CLIENT_SECRET")},
 	}
+
 	resp, err := http.PostForm("https://accounts.spotify.com/api/token", formData)
 
 	if err != nil {
@@ -25,12 +33,10 @@ func GenerateToken() (string, error) {
 		return "", fmt.Errorf("Unexpected Status Code %d", resp.StatusCode)
 	}
 
-	var result map[string]interface{}
-	accessToken, ok := result["access_token"].(string)
-
-	if !ok {
-		return "", fmt.Errorf("access token not found in response")
+	var result tokenResponse
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return "", fmt.Errorf("failed to decode response: %v", err)
 	}
 
-	return accessToken, nil
+	return result.AccessToken, nil
 }

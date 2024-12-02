@@ -2,12 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
+	/* "github.com/jroimartin/gocui" */
 	"spotify-tui/internal/services"
-	"spotify-tui/internal/spotifyUI"
-
-	"github.com/jroimartin/gocui"
-)
+	/* "spotify-tui/internal/spotifyUI" */)
 
 func main() {
 	fmt.Println(services.GenerateToken())
