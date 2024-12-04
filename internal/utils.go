@@ -8,7 +8,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// this will load .env relative to the file that run this function
+// GetEnv this will load .env relative to the file that run this function
 func GetEnv(key string) string {
 
 	absPath, _ := filepath.Abs("../../.env")
