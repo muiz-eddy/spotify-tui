@@ -6,9 +6,8 @@ import (
 	"net/http"
 )
 
-type HTTPService struct{}
-
 func CreateSpotifyClient(ctx context.Context) *http.Client {
+
 	bearerToken, _ := GenerateToken()
 	token := &oauth2.Token{
 		AccessToken: bearerToken,
