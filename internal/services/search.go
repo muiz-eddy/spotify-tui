@@ -10,7 +10,7 @@ import (
 	"spotify-tui/internal"
 )
 
-func Search(query string, albumType string) ([]byte, error) {
+func Search(query string, searchType string) ([]byte, error) {
 	base, err := url.Parse(internal.BaseUrl)
 	if err != nil {
 		return nil, err
@@ -19,8 +19,9 @@ func Search(query string, albumType string) ([]byte, error) {
 	base.Path += "search"
 	params := url.Values{}
 	params.Add("q", query)
-	params.Add("type", albumType)
+	params.Add("type", searchType)
 	params.Add("market", "ES")
+	params.Add("limit", "10")
 	base.RawQuery = params.Encode()
 
 	endpoint := base.String()
