@@ -12,6 +12,7 @@ import (
 	"spotify-tui/internal/model"
 )
 
+// Search TODO: Add Testing for this endpoint
 func Search(query string, searchType string) (model.Search, error) {
 	base, err := url.Parse(internal.BaseUrl)
 	if err != nil {
