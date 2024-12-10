@@ -2,18 +2,20 @@ package services
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 	"spotify-tui/internal"
+	"spotify-tui/internal/model"
 )
 
-func Search(query string, searchType string) ([]byte, error) {
+func Search(query string, searchType string) (model.Search, error) {
 	base, err := url.Parse(internal.BaseUrl)
 	if err != nil {
-		return nil, err
+		return model.Search{}, err
 	}
 
 	base.Path += "search"
@@ -31,7 +33,7 @@ func Search(query string, searchType string) ([]byte, error) {
 
 	resp, err := client.Get(endpoint)
 	if err != nil {
-		return nil, fmt.Errorf("failed to fetch search results: %w", err)
+		return model.Search{}, fmt.Errorf("failed to fetch search results: %w", err)
 	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
@@ -41,12 +43,14 @@ func Search(query string, searchType string) ([]byte, error) {
 	}(resp.Body)
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("failed to fetch search results: %d", resp.StatusCode)
+		return model.Search{}, fmt.Errorf("failed to fetch search results: %d", resp.StatusCode)
 	}
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %w", err)
+	var result model.Search
+
+	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+		return model.Search{}, fmt.Errorf("failed to read response body: %w", err)
 	}
-	return body, nil
+
+	return result, nil
 }
