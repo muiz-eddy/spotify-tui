@@ -6,8 +6,12 @@ import (
 	"spotify-tui/internal/services"
 	/* "spotify-tui/internal/spotifyUI" */)
 
+// TODO: resp is returning bytes, change that to string
 func main() {
 	fmt.Println(services.GenerateToken())
+	resp, err := services.Search("taylor swift", "album")
+	fmt.Println(err)
+	fmt.Println(resp.Albums)
 	// g, err := gocui.NewGui(gocui.OutputNormal)
 	// if err != nil {
 	// 	log.Panicln(err)
