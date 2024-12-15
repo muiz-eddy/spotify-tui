@@ -13,7 +13,13 @@ import (
 )
 
 // Search TODO: Add Testing for this endpoint
-func Search(query string, searchType string) (model.Search, error) {
+func Search(query string, searchType string, client *http.Client) (model.Search, error) {
+
+	if client == nil {
+		ctx := context.Background() //TODO: understand this ctx
+		client = CreateSpotifyClient(ctx)
+	}
+
 	base, err := url.Parse(internal.BaseUrl)
 	if err != nil {
 		return model.Search{}, err
@@ -28,9 +34,6 @@ func Search(query string, searchType string) (model.Search, error) {
 	base.RawQuery = params.Encode()
 
 	endpoint := base.String()
-
-	ctx := context.Background()
-	client := CreateSpotifyClient(ctx)
 
 	resp, err := client.Get(endpoint)
 	if err != nil {
