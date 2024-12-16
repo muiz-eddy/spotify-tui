@@ -12,11 +12,13 @@ import (
 	"spotify-tui/internal/model"
 )
 
-// Search TODO: Add Testing for this endpoint
-func Search(query string, searchType string, client *http.Client) (model.Search, error) {
+func Search(ctx context.Context, query string, searchType string, client *http.Client) (model.Search, error) {
+
+	if ctx == nil {
+		ctx = context.Background()
+	}
 
 	if client == nil {
-		ctx := context.Background() //TODO: understand this ctx
 		client = CreateSpotifyClient(ctx)
 	}
 
