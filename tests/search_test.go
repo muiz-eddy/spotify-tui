@@ -64,8 +64,8 @@ func TestSearch(t *testing.T) {
 
 	expected := "Mock Track"
 
-	if len(result.Tracks.Items) == 0 || *result.Tracks.Items[0].Name != expected {
-		t.Errorf("Expected track name '%s', got '%s'", expected, *result.Tracks.Items[0].Name)
+	if len(result.SearchTracks.Items) == 0 || *result.SearchTracks.Items[0].Name != expected {
+		t.Errorf("Expected track name '%s', got '%s'", expected, *result.SearchTracks.Items[0].Name)
 	}
 
 }

@@ -1,14 +1,14 @@
 package model
 
 type Search struct {
-	Tracks   `json:"tracks"`
-	Artists  `json:"artists"`
-	Albums   `json:"albums"`
-	Playlist `json:"playlist"`
-	Shows    `json:"shows"`
+	SearchTracks `json:"tracks"`
+	Artists      `json:"artists"`
+	Albums       `json:"albums"`
+	Playlist     `json:"playlist"`
+	Shows        `json:"shows"`
 }
 
-type Tracks struct {
+type SearchTracks struct {
 	Href     string  `json:"href"`
 	Previous *string `json:"previous"`
 	Next     *string `json:"next"`

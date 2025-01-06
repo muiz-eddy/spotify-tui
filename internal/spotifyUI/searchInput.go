@@ -1,6 +1,7 @@
 package spotifyUI
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jroimartin/gocui"
 )
@@ -9,7 +10,7 @@ func Layout(g *gocui.Gui) error {
 	maxX, maxY := g.Size()
 
 	if v, err := g.SetView("input", maxX/4, maxY/2-1, maxX*3/4, maxY/2+1); err != nil {
-		if err != gocui.ErrUnknownView {
+		if !errors.Is(err, gocui.ErrUnknownView) {
 			return err
 		}
 
