@@ -22,7 +22,7 @@ func Search(ctx context.Context, query string, searchType string, client *http.C
 		client = CreateSpotifyClient(ctx)
 	}
 
-	base, err := url.Parse(internal.BaseUrl)
+	base, err := url.Parse(internal.BASEURL)
 	if err != nil {
 		return model.Search{}, err
 	}

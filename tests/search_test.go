@@ -49,7 +49,7 @@ func TestSearch(t *testing.T) {
 
 	defer mockServer.Close()
 
-	internal.BaseUrl = mockServer.URL
+	internal.BASEURL = mockServer.URL
 	ctx := context.Background()
 	mockClient := &http.Client{}
 
